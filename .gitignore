@@ -1,0 +1,8 @@
+# My files
+hidden.txt
+
+# intellij
+workspace.xml
+tasks.xml
+.iws
+.idea/libraries/*
