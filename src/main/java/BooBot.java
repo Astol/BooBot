@@ -10,22 +10,18 @@ import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
-import sx.blah.discord.util.audio.AudioPlayer;
-import sx.blah.discord.util.audio.events.TrackFinishEvent;
-import sx.blah.discord.util.audio.events.TrackQueueEvent;
-import sx.blah.discord.util.audio.events.TrackStartEvent;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
-import java.util.Map;
 import java.util.HashMap;
+
+import static sx.blah.discord.handle.obj.Status.game;
 
 public class BooBot {
     private static String TOKEN = "";
     private static final String PREFIX = "!!";
     private static IDiscordClient client;
-    private static final String snowflake = "115557239862984712";
+    private static final String owner = "115557239862984712";
 
     private final Map<IGuild, IChannel> lastChannel = new HashMap<IGuild, IChannel>();
 
@@ -41,6 +37,7 @@ public class BooBot {
 
     @EventSubscriber
     public void onReady(ReadyEvent event) {
+        client.changeStatus(game("!!help"));
         System.out.println("Bot is now ready!");
     }
 
@@ -51,25 +48,23 @@ public class BooBot {
 
         IChannel channel = message.getChannel();
 
-        if (user.isBot()){
-            channel.sendMessage("Our love can never be " + user.getName() + " :(");
-            return;
-        }
-
-        IGuild guild = message.getGuild();
         String[] split = message.getContent().split(" ");
-
         if(split.length >= 1 && split[0].startsWith(PREFIX)){
+            if (user.isBot()){
+                channel.sendMessage("Our love can never be " + user.getName() + " :disappointed_relieved: ");
+                return;
+            }
+
             String command = split[0].replaceFirst(PREFIX, "");
 
             if(command.equalsIgnoreCase("freddyspin")){
                 channel.sendMessage("::freddyspin");
-            } else if(command.equalsIgnoreCase("hejsan")){
-                channel.sendMessage("Hej sexy <3");
+            } else if(command.equalsIgnoreCase("help")){
+                channel.sendMessage("For a list of commands");
             } else if(command.equalsIgnoreCase("tja")){
                 channel.sendMessage("Gib cash<3");
             } else if(command.equalsIgnoreCase("logoff")){
-                if(user.getID().equals(snowflake)){
+                if(user.getID().equals(owner)){
                     channel.sendMessage("Hejdårå :(");
                     client.logout();
                 } else {
