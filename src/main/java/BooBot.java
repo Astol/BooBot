@@ -60,7 +60,7 @@ public class BooBot {
             if(command.equalsIgnoreCase("freddyspin")){
                 channel.sendMessage("::freddyspin");
             } else if(command.equalsIgnoreCase("help")){
-                channel.sendMessage("For a list of commands");
+                channel.sendMessage("For a list of commands, visit:\nhttps://github.com/Astol/BooBot");
             } else if(command.equalsIgnoreCase("tja")){
                 channel.sendMessage("Gib cash<3");
             } else if(command.equalsIgnoreCase("logoff")){
