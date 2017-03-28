@@ -9,3 +9,4 @@ be updated when new commands are implemented.
 
 `help` posts a message with a link to this page.
 `logoff` logs the bot out if you are the owner specified in program.
+
