@@ -2,6 +2,8 @@ import java.time.LocalDateTime;
 import java.util.Hashtable;
 import java.util.Random;
 
+import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4;
+
 /**
  * Created by Alexander on 2017-03-29.
  */
@@ -76,10 +78,10 @@ public class QuizGame {
         String questionStr;
 
         if(question.getType().equals("multiple")){
-            questionStr =     "**!!a** " + solution.get("A") + "\n"
-                            + "**!!b** " + solution.get("B") + "\n"
-                            + "**!!c** " + solution.get("C") + "\n"
-                            + "**!!d** " + solution.get("D") + "\n";
+            questionStr =     "**!!a** " + unescapeHtml4(solution.get("A")) + "\n"
+                            + "**!!b** " + unescapeHtml4(solution.get("B")) + "\n"
+                            + "**!!c** " + unescapeHtml4(solution.get("C")) + "\n"
+                            + "**!!d** " + unescapeHtml4(solution.get("D")) + "\n";
         } else {
             questionStr = "**!!true** or **!!false?**";
         }

@@ -58,13 +58,12 @@ public class MessageHandler {
                     if(game.correctGuess(command.toUpperCase())) {
                         channel.sendMessage("Congratulations! Your guess was correct: " + "**" +  command.toUpperCase() + "**");
                     } else {
-                        channel.sendMessage("Ahw dang it! It would seem that you did not answer correctly on that one." +
-                                                "Correct answer was: **" + game.getCorrectAnswer() + "**" +
-                                                "\n**!!quiz** for a new question! :) ");
+                        channel.sendMessage("NOPE! Correct answer was: **" + game.getCorrectAnswer() + "**" +
+                                                "\n\n**!!quiz** for a new question! :) ");
                     }
                 } else {
                     channel.sendMessage("Oh I'm afraid the time has run out for the last question(12s time limit)." +
-                                            "\nStart a new question with **!!quiz**! :) ");
+                                            "\n\nStart a new question with **!!quiz**! :) ");
                 }
             }
             else if(command.equalsIgnoreCase("logoff")){
