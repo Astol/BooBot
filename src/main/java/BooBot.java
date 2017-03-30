@@ -15,23 +15,27 @@ import java.util.*;
 import java.io.*;
 import java.util.HashMap;
 
+import com.google.gson.JsonSyntaxException;
+import java.lang.IllegalStateException;
 import static sx.blah.discord.handle.obj.Status.game;
 
 public class BooBot {
     private static String TOKEN = "";
-    private static final String PREFIX = "!!";
     private static IDiscordClient client;
-    private static final String owner = "115557239862984712";
+    private static MessageHandler messageHandler;
 
     private final Map<IGuild, IChannel> lastChannel = new HashMap<IGuild, IChannel>();
 
-    public static void main(String[] args) throws IOException, DiscordException, RateLimitException {
+    public static void main(String[] args) throws DiscordException, RateLimitException, FileNotFoundException {
         Scanner file = new Scanner(new File("src/main/java/hidden.txt"));
         TOKEN = file.nextLine();
 
         System.out.println("Logging bot in...");
         client = new ClientBuilder().withToken(TOKEN).build();
         client.getDispatcher().registerListener(new BooBot());
+
+        messageHandler = new MessageHandler(client);
+
         client.login();
     }
 
@@ -42,36 +46,12 @@ public class BooBot {
     }
 
     @EventSubscriber
-    public void onMessage(MessageReceivedEvent event) throws RateLimitException, DiscordException, MissingPermissionsException {
+    public void onMessage(MessageReceivedEvent event) throws RateLimitException, DiscordException, MissingPermissionsException, IllegalStateException, JsonSyntaxException {
         IMessage message = event.getMessage();
         IUser user = message.getAuthor();
-
         IChannel channel = message.getChannel();
 
-        String[] split = message.getContent().split(" ");
-        if(split.length >= 1 && split[0].startsWith(PREFIX)){
-            if (user.isBot()){
-                channel.sendMessage("Our love can never be " + user.getName() + " :disappointed_relieved: ");
-                return;
-            }
-
-            String command = split[0].replaceFirst(PREFIX, "");
-
-            if(command.equalsIgnoreCase("freddyspin")){
-                channel.sendMessage("::freddyspin");
-            } else if(command.equalsIgnoreCase("help")){
-                channel.sendMessage("For a list of commands, visit:\nhttps://github.com/Astol/BooBot");
-            } else if(command.equalsIgnoreCase("tja")){
-                channel.sendMessage("Gib cash<3");
-            } else if(command.equalsIgnoreCase("logoff")){
-                if(user.getID().equals(owner)){
-                    channel.sendMessage("Hejdårå :(");
-                    client.logout();
-                } else {
-                    channel.sendMessage("Du är inte min riktiga pappa " + user.getName() + " :(");
-                }
-            }
-        }
+        messageHandler.handleMessage(message, user, channel);
     }
 
 }
