@@ -53,7 +53,7 @@ public class MessageHandler {
             } else if(command.equalsIgnoreCase("A") || command.equalsIgnoreCase("B")
                     || command.equalsIgnoreCase("C") || command.equalsIgnoreCase("D")
                     || command.equalsIgnoreCase("true") || command.equalsIgnoreCase("false")) {
-                System.out.println("GUESSING: " + command.toUpperCase());
+
                 if(game.isActive(message.getCreationDate())) {
                     if(game.correctGuess(command.toUpperCase())) {
                         channel.sendMessage("Congratulations! Your guess was correct: " + "**" +  command.toUpperCase() + "**");
@@ -62,10 +62,11 @@ public class MessageHandler {
                                                 "\n\n**!!quiz** for a new question! :) ");
                     }
                 } else {
-                    channel.sendMessage("Oh I'm afraid the time has run out for the last question(12s time limit)." +
+                    channel.sendMessage("Oh I'm afraid the time has run out for the last question(20s time limit)." +
                                             "\n\nStart a new question with **!!quiz**! :) ");
                 }
             }
+
             else if(command.equalsIgnoreCase("logoff")){
                 if(user.getID().equals(owner)){
                     channel.sendMessage("~~Bye Bye :(~~");

@@ -20,7 +20,7 @@ public class QuizGame {
     public void createGame(QuizQuestion question, LocalDateTime creationTime) {
         this.question = question;
         gameCreated = true;
-        timeLimit = creationTime.plusSeconds(12);
+        timeLimit = creationTime.plusSeconds(20);
         answered = false;
         scrambleAnswers(question.getCorrect_answer(), question.getIncorrect_answers());
     }

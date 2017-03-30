@@ -39,5 +39,5 @@ Theodore Roosevelt Jr. was the only General involved in the initial assault on D
 
 Rules:
 1. Anyone in the channel can answer, first answer ends the question.
-2. You must answer within 12 seconds or your answer will not be processed.
+2. You must answer within 20 seconds or your answer will not be processed.
 3. You can not start a new question while another question is active.
