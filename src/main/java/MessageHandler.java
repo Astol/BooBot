@@ -59,6 +59,7 @@ public class MessageHandler {
                         channel.sendMessage("Congratulations! Your guess was correct: " + "**" +  command.toUpperCase() + "**");
                     } else {
                         channel.sendMessage("Ahw dang it! It would seem that you did not answer correctly on that one." +
+                                                "Correct answer was: **" + game.getCorrectAnswer() + "**" +
                                                 "\n**!!quiz** for a new question! :) ");
                     }
                 } else {

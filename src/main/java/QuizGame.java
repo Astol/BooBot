@@ -7,14 +7,12 @@ import java.util.Random;
  */
 public class QuizGame {
     private Random random = new Random();
-
     private QuizQuestion question;
     private LocalDateTime timeLimit;
     private Hashtable<String, String> solution = new Hashtable<>();
     private boolean answered;
-
+    private String correctAnswer;
     private boolean gameCreated = false;
-
     private static final String[] options = {"A", "B", "C", "D"};
 
     public void createGame(QuizQuestion question, LocalDateTime creationTime) {
@@ -28,7 +26,10 @@ public class QuizGame {
     private void scrambleAnswers(String correct, String[] incorrect) {
         int randomInt = random.ints(0, 3).limit(1).findFirst().getAsInt();
         solution.clear();
-        solution.put(options[randomInt], correct);
+
+        String correctSlot = options[randomInt];
+        solution.put(correctSlot, correct);
+        correctAnswer = correctSlot;
 
         int skipped = 10;
         for (int i = 0; i < incorrect.length; i++) {
@@ -43,7 +44,7 @@ public class QuizGame {
     }
 
     public boolean isActive(LocalDateTime time) {
-        if(gameCreated && time.isBefore(timeLimit)){
+        if(!answered && gameCreated && time.isBefore(timeLimit)){
             return true;
         } else {
             return false;
@@ -53,20 +54,22 @@ public class QuizGame {
     public boolean correctGuess(String guess) {
         if (question.getType().equals("boolean")) {
             if(question.getCorrect_answer().equalsIgnoreCase(guess) && !answered) {
-                return true;
-            } else { return false; }
-        }
-        else {
-            if (solution.get(guess).equalsIgnoreCase(question.getCorrect_answer()) && !answered) {
+                answered = true;
                 return true;
             } else {
+                answered = true;
                 return false;
             }
         }
-    }
-
-    public String answer() {
-        return question.getCorrect_answer();
+        else {
+            if (solution.get(guess).equalsIgnoreCase(question.getCorrect_answer()) && !answered) {
+                answered = true;
+                return true;
+            } else {
+                answered = true;
+                return false;
+            }
+        }
     }
 
     public String questionEnding() {
@@ -82,4 +85,6 @@ public class QuizGame {
         }
         return questionStr;
     }
+
+    public String getCorrectAnswer() { return correctAnswer; }
 }
