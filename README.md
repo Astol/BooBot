@@ -14,7 +14,7 @@ be updated when new commands are implemented.
 `quiz` starts the quiz game as described below.
  
  
- ##!!Quiz game
+## !!Quiz game
 This creates a quiz question and publishes it in the channel. 
 <br />Example 1:
 ```
